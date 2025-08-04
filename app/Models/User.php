@@ -2,47 +2,68 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Contact;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
-class User extends Authenticatable
+class User extends Model implements Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use AuthenticatableTrait;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    protected $keyType = 'int';
+    public $timestamps = true;
+    public $incrementing = true;
+
     protected $fillable = [
+        'username',
         'name',
-        'email',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function contacts(): HasMany
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Contact::class, 'user_id', "id");
     }
+
+    // Implementing Authenticatable methods
+    // public function getAuthIdentifierName()
+    // {
+    //     return 'username';
+    // }
+
+    // public function getAuthIdentifier()
+    // {
+    //     return $this->username;
+    // }
+
+    // public function getAuthPassword()
+    // {
+    //     return $this->password;
+    // }
+
+    // public function getAuthPasswordName()
+    // {
+    //     return 'password';
+    // }
+
+    // public function getRememberToken()
+    // {
+    //     return 'token';
+    // }
+
+    // public function setRememberToken($value)
+    // {
+    //     $this->token = $value;
+    // }
+
+    // public function getRememberTokenName()
+    // {
+    //     return 'token';
+    // }
 }
+
+

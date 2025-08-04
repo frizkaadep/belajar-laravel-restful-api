@@ -1,0 +1,471 @@
+{
+    "openapi": "3.1.1",
+    "info": {
+        "title": "address API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "paths": {
+        "/api/contacts/{idContact}/addresses": {
+            "post": {
+                "description": "Create a new address",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "schema": {
+                            "type": "string",
+                            "description": "Bearer token for authentication"
+                        }
+                    },
+                    {
+                        "name": "idContact",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "ID of the contact to which the address belongs"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Create new Address",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "street": {
+                                        "type": "string",
+                                        "description": "Street name and number"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "description": "City name"
+                                    },
+                                    "province": {
+                                        "type": "string",
+                                        "description": "Province or state name"
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "description": "Country name"
+                                    },
+                                    "postal_Code": {
+                                        "type": "string",
+                                        "description": "Postal or ZIP code"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Address created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "description": "ID of the newly created address"
+                                                },
+                                                "street": {
+                                                    "type": "string",
+                                                    "description": "Street name and number"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "description": "City name"
+                                                },
+                                                "province": {
+                                                    "type": "string",
+                                                    "description": "Province or state name"
+                                                },
+                                                "country": {
+                                                    "type": "string",
+                                                    "description": "Country name"
+                                                },
+                                                "postal_Code": {
+                                                    "type": "string",
+                                                    "description": "Postal or ZIP code"
+                                                }
+                                            }
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, invalid input"
+                    },
+                    "401": {
+                        "description": "Unauthorized, invalid or missing token"
+                    },
+                    "404": {
+                        "description": "Contact not found"
+                    }
+                }
+            },
+            "get": {
+                "description": "Get all addresses",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "schema": {
+                            "type": "string",
+                            "description": "Bearer token for authentication"
+                        }
+                    },
+                    {
+                        "name": "idContact",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "ID of the contact to which the address belongs"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Addresses retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "ID of the address"
+                                                    },
+                                                    "street": {
+                                                        "type": "string",
+                                                        "description": "Street name and number"
+                                                    },
+                                                    "city": {
+                                                        "type": "string",
+                                                        "description": "City name"
+                                                    },
+                                                    "province": {
+                                                        "type": "string",
+                                                        "description": "Province or state name"
+                                                    },
+                                                    "country": {
+                                                        "type": "string",
+                                                        "description": "Country name"
+                                                    },
+                                                    "postal_Code": {
+                                                        "type": "string",
+                                                        "description": "Postal or ZIP code"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, invalid input"
+                    },
+                    "401": {
+                        "description": "Unauthorized, invalid or missing token"
+                    },
+                    "404": {
+                        "description": "Contact not found"
+                    }
+                }
+            }
+        },
+        "/api/contacts/{idContact}/addresses/{idAddress}": {
+            "get": {
+                "description": "Get all addresses",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "schema": {
+                            "type": "string",
+                            "description": "Bearer token for authentication"
+                        }
+                    },
+                    {
+                        "name": "idContact",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "ID of the contact to which the address belongs"
+                        }
+                    },
+                    {
+                        "name": "idAddress",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "ID of the address to retrieve"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Address created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "description": "ID of the newly created address"
+                                                },
+                                                "street": {
+                                                    "type": "string",
+                                                    "description": "Street name and number"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "description": "City name"
+                                                },
+                                                "province": {
+                                                    "type": "string",
+                                                    "description": "Province or state name"
+                                                },
+                                                "country": {
+                                                    "type": "string",
+                                                    "description": "Country name"
+                                                },
+                                                "postal_Code": {
+                                                    "type": "string",
+                                                    "description": "Postal or ZIP code"
+                                                }
+                                            }
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, invalid input"
+                    },
+                    "401": {
+                        "description": "Unauthorized, invalid or missing token"
+                    },
+                    "404": {
+                        "description": "Contact not found"
+                    }
+                }
+            },
+            "put": {
+                "description": "Update an address",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "schema": {
+                            "type": "string",
+                            "description": "Bearer token for authentication"
+                        }
+                    },
+                    {
+                        "name": "idContact",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "ID of the contact to which the address belongs"
+                        }
+                    },
+                    {
+                        "name": "idAddress",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "ID of the address to retrieve"
+                        }
+                    }
+                ],
+                "requestBody":{
+                    "description": "Update existing Address",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "street": {
+                                        "type": "string",
+                                        "description": "Street name and number"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "description": "City name"
+                                    },
+                                    "province": {
+                                        "type": "string",
+                                        "description": "Province or state name"
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "description": "Country name"
+                                    },
+                                    "postal_Code": {
+                                        "type": "string",
+                                        "description": "Postal or ZIP code"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Address updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "description": "ID of the newly created address"
+                                                },
+                                                "street": {
+                                                    "type": "string",
+                                                    "description": "Street name and number"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "description": "City name"
+                                                },
+                                                "province": {
+                                                    "type": "string",
+                                                    "description": "Province or state name"
+                                                },
+                                                "country": {
+                                                    "type": "string",
+                                                    "description": "Country name"
+                                                },
+                                                "postal_Code": {
+                                                    "type": "string",
+                                                    "description": "Postal or ZIP code"
+                                                }
+                                            }
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, invalid input"
+                    },
+                    "401": {
+                        "description": "Unauthorized, invalid or missing token"
+                    },
+                    "404": {
+                        "description": "Contact not found"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete an address",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "schema": {
+                            "type": "string",
+                            "description": "Bearer token for authentication"
+                        }
+                    },
+                    {
+                        "name": "idContact",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "ID of the contact to which the address belongs"
+                        }
+                    },
+                    {
+                        "name": "idAddress",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "ID of the address to retrieve"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Address deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, invalid input"
+                    },
+                    "401": {
+                        "description": "Unauthorized, invalid or missing token"
+                    },
+                    "404": {
+                        "description": "Contact not found"
+                    }
+                }
+            }
+        }
+    }
+}
